@@ -1,9 +1,6 @@
 var nsKeyboard = nsKeyboard || {};
 nsKeyboard = {
-    Keyboard:class {
-        constructor() {
-            
-        }
+    Keyboard:class {        
         generateKeyboard() {
             for(let i = 65; i <= 90; i++) {
                 this.createKey(String.fromCharCode(i));

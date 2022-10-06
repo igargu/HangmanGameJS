@@ -1,2 +1,2 @@
-var game = new nsKeyboard.Keyboard();
-game.generateKeyboard();
+game = new nsGame.Game;
+game.startGame();
