@@ -5,11 +5,10 @@ nsGame = {
          * Constructor de la clase
          */
         constructor() {
-            this.attemps = 8;
             this.wordsList = new Array("PAN", "CASA", "GATO", "PERRO", "TORRES");
-            this.word = null;
             this.keyboard = new nsKeyboard.Keyboard();
-            this.btRestart = document.getElementById("btRestart");
+            this.word = null;
+            this.attemps = 8;
         }
         /**
          * Método que inicia el juego
@@ -18,8 +17,6 @@ nsGame = {
             this.word = this.generateWord();
             this.drawHints(this.word);
             //this.keyboard.generateKeyboard();
-            //this.gameLogic();
-            //this.reloadGame();
         }
         /**
          * Método que genera la palabra parar adivinar
@@ -44,30 +41,30 @@ nsGame = {
             div.appendChild(p);
         }
         /**
-         * Método que establece la lógica del juego
+         * Método que comprueba la letra introducida
          */
-        gameLogic() {
-            document.getElementById("button").onclick = function() {
-                let hints = document.getElementById("hints").innerHTML;
-                let attemps = document.getElementById("attemps").innerHTML;
-                let wordGuessed = false;
-                while(this.attemps > 0 || wordGuessed) {
-                    let letter = document.getElementById("input").value;
-                    for (let i = 0; i < this.word.length; i++) {
-                        if(letter == this.word.charAt(i)) {
-                            hints.replace(hints.charAt(i*2), letter);
-                            if (hints.trim == this.word) {
-                                wordGuessed = true;
-                            }
-                        } else if(i == this.word.length-1) {
-                            this.attemps--;
-                            attemps = attemps + this.attemps;
-                        }
+        checkLetter() {
+            let letterGuessed = false;
+            let hints = document.getElementById("hints").innerHTML;
+            let letter = document.getElementById("input").value.toUpperCase();
+            for (let i = 0; i < this.word.length; i++) {
+                if(letter == this.word.charAt(i)) {
+                    hints = hints.replace(hints.charAt(i), letter);
+                    letterGuessed = true;                    
+                    if (hints.search("_") < 0) {
+                        this.gameFinish(true);
                     }
-                    letter = "";
+                } else if(i == this.word.length-1 && letterGuessed == false) {
+                    this.attemps--;
+                    document.getElementById("attemps").innerHTML = "Intentos: " + this.attemps;
+                    if (this.attemps == 0) {
+                        this.gameFinish(false);
+                    }
                 }
             }
-            this.gameFinish(this.wordGuessed);
+            letterGuessed = false;
+            document.getElementById("hints").innerHTML = hints;
+            document.getElementById("input").value = "";
         }
         /**
          * Método que finaliza la partida y muestra el mensaje de resultado
@@ -75,15 +72,22 @@ nsGame = {
         gameFinish(resultado) {
             let message = resultado ? "HAS GANADO" : "HAS PERDIDO";
             console.log(message);
-            btRestart.hidden = false;
+            document.getElementById("button").disabled = true;
+            document.getElementById("btRestart").hidden = false;
         }
         /**
          * Método que reinicia la partida
          */
-        reloadGame() {
-            this.btRestart.onclick = function() {
-                // Reiniciar partida
-            }
+        restartGame() {
+            location.reload();
         }
     }
 }
+
+/*
+
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+
+*/
