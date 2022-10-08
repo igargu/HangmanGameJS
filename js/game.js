@@ -16,7 +16,7 @@ nsGame = {
         startGame() {
             this.word = this.generateWord();
             this.drawHints(this.word);
-            //this.keyboard.generateKeyboard();
+            this.keyboard.generateKeyboard();
         }
         /**
          * Método que genera la palabra parar adivinar
@@ -46,10 +46,13 @@ nsGame = {
         checkLetter() {
             let letterGuessed = false;
             let hints = document.getElementById("hints").innerHTML;
-            let letter = document.getElementById("input").value.toUpperCase();
+            let letter = document.getElementById("key").value.toUpperCase();
+            let lettersUsed = "";
+            lettersUsed = lettersUsed + " " + letter
+            console.log("Letras usadas: " + lettersUsed);
             for (let i = 0; i < this.word.length; i++) {
                 if(letter == this.word.charAt(i)) {
-                    hints = hints.replace(hints.charAt(i), letter);
+                    hints = hints.substring(0, i*2) + letter + hints.substring(i*2 + letter.length);
                     letterGuessed = true;                    
                     if (hints.search("_") < 0) {
                         this.gameFinish(true);
@@ -62,7 +65,7 @@ nsGame = {
                     }
                 }
             }
-            letterGuessed = false;
+            letterGuessed = false;            
             document.getElementById("hints").innerHTML = hints;
             document.getElementById("input").value = "";
         }
@@ -83,11 +86,3 @@ nsGame = {
         }
     }
 }
-
-/*
-
-String.prototype.replaceAt = function(index, replacement) {
-    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
-}
-
-*/

@@ -11,7 +11,7 @@ nsKeyboard = {
         }
         createKey(letter) {
             let div = document.createElement("div");
-            div.setAttribute("class", "key");
+            div.setAttribute("id", "key");
             document.getElementById("keyboard").appendChild(div);
             let p = document.createElement("p");
             p.appendChild(document.createTextNode(letter));
