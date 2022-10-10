@@ -1,7 +1,38 @@
-#keyboard {
-    background-color: black;
+body {
+    text-align: center;
 }
 
-#key {
-    background-color: gray;
+#keyboard, th {
+    background-color: black;
+    border: 1px solid;
+    height: 350px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.key {
+    background-color: lightgray;
+    height: 100px;
+    width: 100px;
+    margin: 0px auto;
+}
+
+#key-disabled {
+    background-color: darkgray;
+    height: 100px;
+    width: 100px;
+    margin: 0px auto;
+}
+
+#win-message {
+    background-color: forestgreen;
+}
+
+#defeat-message {
+    background-color: firebrick;
+}
+
+button {
+    margin: 20px;
 }

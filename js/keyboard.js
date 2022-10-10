@@ -2,20 +2,26 @@ var nsKeyboard = nsKeyboard || {};
 nsKeyboard = {
     Keyboard:class {        
         generateKeyboard() {
-            let div = document.createElement("div");
-            div.setAttribute("id", "keyboard");
-            document.body.appendChild(div);
-            for(let i = 65; i <= 90; i++) {
-                this.createKey(String.fromCharCode(i));
+            let table = document.createElement("table");
+            table.setAttribute("id", "keyboard");
+            const letters = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+                             'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ',
+                             ' ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ' ', ' '];
+            for(let i = 0; i < 3; i++) {
+                let tr = document.createElement("tr");
+                for (let j = 0; j < 10; j++) {
+                    let th = document.createElement("th");
+                    if (i == 2 && (j == 0 || j == 8 || j == 9)) {
+                        th.setAttribute("id", "key-disabled");
+                    } else {
+                        th.setAttribute("class", "key");
+                    }
+                    tr.appendChild(th);
+                    tr.cells[j].appendChild(document.createTextNode(letters[j+(i*10)]));
+                    table.appendChild(tr);
+                }
             }
-        }
-        createKey(letter) {
-            let div = document.createElement("div");
-            div.setAttribute("id", "key");
-            document.getElementById("keyboard").appendChild(div);
-            let p = document.createElement("p");
-            p.appendChild(document.createTextNode(letter));
-            div.appendChild(p);
+            document.body.appendChild(table);
         }
     }
 };

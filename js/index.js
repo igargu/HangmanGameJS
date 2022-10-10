@@ -1,9 +1,9 @@
 game = new nsGame.Game;
 game.startGame();
 
-document.getElementById('button').onclick = function() {
-    game.checkLetter();
-}
-document.getElementById('btRestart').onclick = function() {
-    game.restartGame();
+var keyboard = document.getElementsByClassName('key');
+for (let i = 0; i < keyboard.length; i++) {
+    keyboard[i].onclick = function() {
+        game.checkLetter(keyboard[i].innerHTML, i);
+    }
 }
