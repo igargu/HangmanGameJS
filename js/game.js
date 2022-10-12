@@ -1,33 +1,25 @@
 var nsGame = nsGame || {};
 nsGame = {
     Game:class {
-        /**
-         * Constructor de la clase
-         */
+        
         constructor() {
-            this.wordsList = new Array("PAN", "CASA", "GATO", "PERRO", "TORRES");
+            this.wordsList = new Array("PAN", "SOL", "CASA", "GATO", "HUMO", "MAGIA", "PERRO", "TORRES");
             this.keyboard = new nsKeyboard.Keyboard();
             this.word = null;
             this.attemps = 8;
         }
-        /**
-         * Método que inicia el juego
-         */
+        
         startGame() {
             this.word = this.generateWord();
             this.drawHints(this.word);
             this.keyboard.generateKeyboard();
         }
-        /**
-         * Método que genera la palabra parar adivinar
-         */
+        
         generateWord() {
-            let wordPosition = Math.floor(Math.random() * 5);
+            let wordPosition = Math.floor(Math.random() * this.wordsList.length);
             return this.wordsList.at(wordPosition);
         }
-        /**
-         * Método que dibuja los hints de la palabra
-         */
+        
         drawHints(word) {
             let hints = "";
             for (let i = 0; i < word.length; i++) {
@@ -40,9 +32,7 @@ nsGame = {
             p.appendChild(document.createTextNode(hints));
             div.appendChild(p);
         }
-        /**
-         * Método que comprueba la letra introducida
-         */
+        
         checkLetter(letter, numKey) {
             let letterGuessed = false;
             let hints = document.getElementById("hints").innerHTML;
@@ -70,9 +60,7 @@ nsGame = {
             keyboard[numKey].onclick = null;
             keyboard[numKey].setAttribute("id", "key-disabled");
         }
-        /**
-         * Método que finaliza la partida y muestra el mensaje de resultado
-         */
+        
         gameFinish(resultado) {
             let message = document.getElementById("message");
             if (resultado) {
@@ -88,10 +76,9 @@ nsGame = {
                 keyboard[i].onclick = null;
             }  
         }
-        /**
-         * Método que reinicia la partida
-         */
+        
         restartGame() {
+            document.getElementById("attemps").appendChild(document.createElement("br"));
             let button = document.createElement("button");
             document.getElementById("attemps").appendChild(button);
             button.appendChild(document.createTextNode("REINICIAR"));
@@ -100,38 +87,35 @@ nsGame = {
             }
         }
 
-        /**
-         * Método que muestra las imágenes del juego
-         */
         showImages(attemps) {
             let src = "";
             switch(attemps) {
                 case -1: 
-                    src = "win.jpg";
+                    src = "img/win.png";
                     break;
                 case 7: 
-                    src = "attemp-7.jpg";
+                    src = "img/attemp-7.png";
                     break;
                 case 6: 
-                    src = "attemp-6.jpg";
+                    src = "img/attemp-6.png";
                     break;
                 case 5: 
-                    src = "attemp-5.jpg";
+                    src = "img/attemp-5.png";
                     break;
                 case 4: 
-                    src = "attemp-4.jpg";
+                    src = "img/attemp-4.png";
                     break;
                 case 3: 
-                    src = "attemp-3.jpg";
+                    src = "img/attemp-3.png";
                     break;
                 case 2: 
-                    src = "attemp-2.jpg";
+                    src = "img/attemp-2.png";
                     break;
                 case 1: 
-                    src = "attemp-1.jpg";
+                    src = "img/attemp-1.png";
                     break;
                 case 0: 
-                    src = "defeat.jpg";
+                    src = "img/defeat.png";
                     break;
             }
             document.getElementById("image").setAttribute("src", src);
